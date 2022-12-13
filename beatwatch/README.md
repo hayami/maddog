@@ -1,4 +1,4 @@
-#h1 Usage
+# Usage
 ```
 usage: beatwatch [OPTION]... [--] COMMAND [ARG]...
 options:
@@ -20,7 +20,7 @@ options:
   --help, --usage  Display this help and exit.
 ```
 
-#h1 Sequence Diagram
+# Sequence Diagram
 The following sequence diagram shows typical operation sequences of the beatwatch. Note that it does not show the entire sequences of operations.
 ```mermaid
 sequenceDiagram
