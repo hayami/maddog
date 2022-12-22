@@ -1,0 +1,19 @@
+ttyd_args() {
+    cat <<- 'EOF' | sed -e '/^#/d' | tr ' ' '\n'
+	--once
+	-i lo
+	-p 0
+	--client-option fontSize=16
+	--client-option fontFamily=monospace
+	--client-option theme={"cursor":"#9F9F9F","background":"#FFFCDE","foreground":"#000000","black":"#0C0C0C","blue":"#0C00B2","cyan":"#00A6B2","green":"#00A600","purple":"#B200B2","red":"#980000","white":"#B2B2B2","yellow":"#989800","brightBlack":"#4C4C4C","brightBlue":"#4C40F2","brightCyan":"#00E6F2","brightGreen":"#00E600","brightPurple":"#F200F2","brightRed":"#E80000","brightWhite":"#D2D2D2","brightYellow":"#E8E800","selection":"#D282D2"}
+	ssh -F ssh/config localhost
+	EOF
+}
+
+# Here are some other options for ttyd that you might use:
+#	--ipv6
+#	--check-origin
+#	--debug 7
+#	--client-option cursorStyle=bar
+#	--client-option lineHeight=2.0
+#	zsh --login

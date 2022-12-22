@@ -1,0 +1,22 @@
+# MultiviewsMatch Handler
+
+# The 404 will be returned if current directory has a directory named 'ttyd'.
+
+# visit https://miranda.tok.access-company.com/~hayami/tty/ttyd/ssh/dummy?port=7681
+
+RewriteEngine	on
+
+# Add a trailing slash if not end with it
+RewriteRule	^(dummy)$		$1/
+
+# http://
+RewriteCond	%{HTTP:Connection}	!upgrade		[NC]
+RewriteCond	%{HTTP:Upgrade}		!websocket		[NC]
+RewriteCond	%{QUERY_STRING}		port=([0-9]+)
+RewriteRule	^(dummy)/(.*)		http://127.0.0.1:%1/$2	[NE,P,L]
+
+# ws://
+RewriteCond	%{HTTP:Connection}	upgrade			[NC]
+RewriteCond	%{HTTP:Upgrade}		websocket		[NC]
+RewriteCond	%{QUERY_STRING}		port=([0-9]+)
+RewriteRule	^(dummy)/(.*)		ws://127.0.0.1:%1/$2	[NE,P,L]
