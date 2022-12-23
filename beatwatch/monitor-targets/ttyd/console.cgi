@@ -73,15 +73,15 @@ for x in $(env | sed 's/=.*$//'); do
     esac
 done
 
-# XXX
-cp -a $HOME/www-tools/etc/ttyd/ssh .
+# Copy ssh related files to $rundir/ssh
+cp -prL $HOME/www-tools/etc/ttyd/ssh .
 
-# Store all arguments for ttyd in $@
-ttyd_args > ttyd.args
-set --; while read line; do set -- "$@" "$line"; done < ttyd.args
+# Store command and arguments in $@
+cmdargs "$rundir" > cmdargs.txt
+set --; while read line; do set -- "$@" "$line"; done < cmdargs.txt
 
-# The loop to start ttyd starts here
-(ttyd "$@" 3>&1 2> stderr.log 1> stdout.log < /dev/null &) | while read line; do
+# The loop to start the command starts here
+(env "$@" 3>&1 2> stderr.log 1> stdout.log < /dev/null &) | while read line; do
     case "$line" in
     PORT=[0-9]*)
         echo ${line#'PORT='} > port

@@ -9,6 +9,8 @@ for x in $(env | sed 's/=.*$//'); do
     esac
 done
 
+tooldir=${1:-"$HOME/www-tools"}
+
 # ttyd version
 v=1.7.2
 
@@ -36,7 +38,7 @@ patch -p0 <<- 'EOF'
 rm -rf build
 mkdir build
 cd build
-cmake -DCMAKE_INSTALL_PREFIX=$HOME/www-tools ..
+cmake -DCMAKE_INSTALL_PREFIX=$tooldir ..
 make
 make install
 exit 0
