@@ -1,5 +1,6 @@
-.PHONY:	default
+.PHONY:	default install
 default: install-all
+install: install-all
 
 SSHHOST	= localhost
 KEYCOMMENT = $$USER@console

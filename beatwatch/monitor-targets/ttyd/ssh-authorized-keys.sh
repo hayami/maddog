@@ -1,7 +1,7 @@
 #!/bin/sh
 
 tilde() {
-    echo "$@" | sed -e 's|'"$HOME"'|~|g'
+    printf "$@" | sed -e 's|'"$HOME"'|~|g'
 }
 
 set -e
@@ -13,10 +13,9 @@ cd "$1"
 sshhost=${2:-localhost}
 
 if [ ! -r identity.pub ]; then
-    echo
     printf '*** '
     printf "$(tilde $(pwd)/identity.pub) file not found, skipping."
-    echo; echo
+    printf '\n'
     exit 0
 fi
 
@@ -25,11 +24,10 @@ localhost|ip6-localhost)
     break
     ;;
 *)
-    echo
     printf '*** '
     printf "You may want to append the $(tilde $(pwd)/identity.pub) to "
     printf "${sshhost}:.ssh/authorized_keys, later."
-    echo; echo
+    printf '\n'
     exit 0
     ;;
 esac
@@ -37,22 +35,19 @@ esac
 if [ -r $HOME/.ssh/authorized_keys ]; then
     x=$(diff -u $HOME/.ssh/authorized_keys identity.pub | grep -e '^ ' || :)
     if [ -n "$x" ]; then
-        echo
         printf '*** '
         printf 'Your ~/.ssh/authorized_keys file contains '
         printf 'the same line as identity.pub, skipping.'
-        echo; echo
+        printf '\n'
         exit 0
     fi
 fi
 
-echo
 while :; do
     printf '*** '
     printf "Do you want to apped $(tilde $(pwd)/identity.pub) to "
     printf '~/.ssh/authorized_keys, now? [y/n]: '
     read ans
-    echo
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])
         break;

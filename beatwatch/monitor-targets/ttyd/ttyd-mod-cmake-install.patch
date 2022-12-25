@@ -1,0 +1,34 @@
+--- cmake_install.cmake.orig
++++ cmake_install.cmake
+@@ -38,23 +38,23 @@
+ endif()
+ 
+ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xprogx" OR NOT CMAKE_INSTALL_COMPONENT)
+-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd" AND
+-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd")
++  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod" AND
++     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod")
+     file(RPATH_CHECK
+-         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd"
++         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod"
+          RPATH "")
+   endif()
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/hayami/tmp/ttyd-1.7.2/build/ttyd")
+-  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd" AND
+-     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE PROGRAM FILES "/home/hayami/tmp/ttyd-1.7.2/build/ttyd" RENAME "ttyd-mod")
++  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod" AND
++     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod")
+     if(CMAKE_INSTALL_DO_STRIP)
+-      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd")
++      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod")
+     endif()
+   endif()
+ endif()
+ 
+ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdocx" OR NOT CMAKE_INSTALL_COMPONENT)
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1" TYPE FILE FILES "/home/hayami/tmp/ttyd-1.7.2/man/ttyd.1")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1" TYPE FILE FILES "/home/hayami/tmp/ttyd-1.7.2/man/ttyd.1" RENAME "ttyd-mod.1")
+ endif()
+ 
+ if(CMAKE_INSTALL_COMPONENT)

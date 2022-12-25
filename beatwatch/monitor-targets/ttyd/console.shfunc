@@ -22,7 +22,7 @@ cmdargs() {
 	--ctrl-log ctrl.log
 	--on-exit '[ $? -ne 0 ] || rm -rf %{rundir}'
 	--
-	ttyd
+	ttyd-mod
 	--once
 	-i lo
 	-p 0

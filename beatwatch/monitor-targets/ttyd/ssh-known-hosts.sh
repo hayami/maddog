@@ -8,13 +8,11 @@ cd "$1"
 
 sshhost=${2:-localhost}
 
-echo
 while :; do
     printf '*** '
     printf "Do you want to apped ${sshhost}'s "
     printf 'host key to known_hosts file, now? [y/n]: '
     read ans
-    echo
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])
         break;

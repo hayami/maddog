@@ -8,12 +8,10 @@ cd "$1"
 
 keycomment=${2:-"$USER@console"}
 
-echo
 while :; do
     printf '*** '
     printf 'Do you want to create ssh key, now? [y/n]: '
     read ans
-    echo
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])
         break

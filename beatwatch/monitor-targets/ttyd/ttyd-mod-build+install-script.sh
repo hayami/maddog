@@ -10,6 +10,7 @@ for x in $(env | sed 's/=.*$//'); do
 done
 
 tooldir=${1:-"$HOME/www-tools"}
+patchdir=${2:-"$(pwd)"}
 
 # ttyd version
 v=1.7.2
@@ -23,30 +24,22 @@ curl -L -o ttyd-$v.tar.gz \
 	https://github.com/tsl0922/ttyd/archive/refs/tags/$v.tar.gz
 tar -xpzf ttyd-$v.tar.gz
 cd ttyd-$v
-patch -p0 <<- 'EOF'
-	--- src/server.c.orig
-	+++ src/server.c
-	@@ -572,6 +572,7 @@
-	   }
-	   int port = lws_get_vhost_listen_port(vhost);
-	   lwsl_notice(" Listening on port: %d\n", port);
-	+  dprintf(3, "PORT=%d\n", port);
-	 
-	   if (browser) {
-	     char url[30];
-	EOF
+for i in $patchdir/ttyd-mod-src-[0-9][0-9][0-9].patch; do
+    patch -p0 < $i
+done
 rm -rf build
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$tooldir ..
+patch -p0 < $patchdir/ttyd-mod-cmake-install.patch
 make
 make install
 exit 0
 
 
 # -- INSTALLED FILES --
-# $HOME/www-tools/bin/ttyd
-# $HOME/www-tools/share/man/man1/ttyd.1
+# $HOME/www-tools/bin/ttyd-mod
+# $HOME/www-tools/share/man/man1/ttyd-mod.1
 
 
 # MEMO:
