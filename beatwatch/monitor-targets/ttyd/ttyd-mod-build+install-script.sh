@@ -30,15 +30,15 @@ curl -L -o ttyd-$v.tar.gz \
     https://github.com/tsl0922/ttyd/archive/refs/tags/$v.tar.gz
 tar -xpzf ttyd-$v.tar.gz
 cd ttyd-$v
-for i in $patchdir/ttyd-mod-src-[0-9]*.patch; do
+for i in $patchdir/ttyd-mod-[0-9]*.patch; do
     patch -p0 < $i
 done
 rm -rf build
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$tooldir ..
-cat $patchdir/ttyd-mod-cmake-install.patch	\
-    | sed -e "s|%%%|$TMPDIR/ttyd-$v|g"		\
+cat $patchdir/ttyd-mod-install.patch	\
+    | sed -e "s|%%%|$TMPDIR/ttyd-$v|g"	\
     | patch -p0
 make
 make install
