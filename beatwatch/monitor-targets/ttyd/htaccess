@@ -4,6 +4,8 @@
 
 # visit https://miranda.tok.access-company.com/~hayami/tty/ttyd/ssh/dummy?port=7681
 
+# TODO XXX .htaccess に reverse proxy の本格的なルールを設定する
+
 RewriteEngine	on
 
 # Add a trailing slash if not end with it

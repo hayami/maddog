@@ -13,9 +13,9 @@ cd "$1"
 sshhost=${2:-localhost}
 
 if [ ! -r identity.pub ]; then
-    printf '*** '
+    printf '\033[31;1m*** '
     printf "$(tilde $(pwd)/identity.pub) file not found, skipping."
-    printf '\n'
+    printf '\033[0m\n'
     exit 0
 fi
 
@@ -24,10 +24,10 @@ localhost|ip6-localhost)
     break
     ;;
 *)
-    printf '*** '
+    printf '\033[31;1m*** '
     printf "You may want to append the $(tilde $(pwd)/identity.pub) to "
     printf "${sshhost}:.ssh/authorized_keys, later."
-    printf '\n'
+    printf '\033[0m\n'
     exit 0
     ;;
 esac
@@ -35,18 +35,19 @@ esac
 if [ -r $HOME/.ssh/authorized_keys ]; then
     x=$(diff -u $HOME/.ssh/authorized_keys identity.pub | grep -e '^ ' || :)
     if [ -n "$x" ]; then
-        printf '*** '
+        printf '\033[31;1m*** '
         printf 'Your ~/.ssh/authorized_keys file contains '
         printf 'the same line as identity.pub, skipping.'
-        printf '\n'
+        printf '\033[0m\n'
         exit 0
     fi
 fi
 
 while :; do
-    printf '*** '
+    printf '\033[31;1m*** '
     printf "Do you want to apped $(tilde $(pwd)/identity.pub) to "
     printf '~/.ssh/authorized_keys, now? [y/n]: '
+    printf '\033[0m'
     read ans
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])

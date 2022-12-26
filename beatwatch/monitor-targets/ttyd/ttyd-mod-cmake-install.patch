@@ -13,10 +13,10 @@
 +         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod"
           RPATH "")
    endif()
--  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/hayami/tmp/ttyd-1.7.2/build/ttyd")
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "%%%/build/ttyd")
 -  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd" AND
 -     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd")
-+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE PROGRAM FILES "/home/hayami/tmp/ttyd-1.7.2/build/ttyd" RENAME "ttyd-mod")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE PROGRAM FILES "%%%/build/ttyd" RENAME "ttyd-mod")
 +  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod" AND
 +     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/ttyd-mod")
      if(CMAKE_INSTALL_DO_STRIP)
@@ -27,8 +27,8 @@
  endif()
  
  if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xdocx" OR NOT CMAKE_INSTALL_COMPONENT)
--  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1" TYPE FILE FILES "/home/hayami/tmp/ttyd-1.7.2/man/ttyd.1")
-+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1" TYPE FILE FILES "/home/hayami/tmp/ttyd-1.7.2/man/ttyd.1" RENAME "ttyd-mod.1")
+-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1" TYPE FILE FILES "%%%/man/ttyd.1")
++  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/man/man1" TYPE FILE FILES "%%%/man/ttyd.1" RENAME "ttyd-mod.1")
  endif()
  
  if(CMAKE_INSTALL_COMPONENT)

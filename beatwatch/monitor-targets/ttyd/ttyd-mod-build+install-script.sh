@@ -1,5 +1,8 @@
 #!/bin/sh
 
+tooldir=${1:-"$HOME/www-tools"}
+patchdir=${2:-"$(pwd)"}
+
 umask 022
 PATH=/usr/bin:/bin
 for x in $(env | sed 's/=.*$//'); do
@@ -9,29 +12,34 @@ for x in $(env | sed 's/=.*$//'); do
     esac
 done
 
-tooldir=${1:-"$HOME/www-tools"}
-patchdir=${2:-"$(pwd)"}
+if [ -z "$TMPDIR"]; then
+    mkdir -p $HOME/tmp
+    TMPDIR=$HOME/tmp
+    export TMPDIR
+fi
 
 # ttyd version
 v=1.7.2
 
 set -e
 set -x
-cd $HOME/tmp
+cd $TMPDIR
 rm -f ttyd-$v.tar.gz
 rm -rf ttyd-$v
 curl -L -o ttyd-$v.tar.gz \
-	https://github.com/tsl0922/ttyd/archive/refs/tags/$v.tar.gz
+    https://github.com/tsl0922/ttyd/archive/refs/tags/$v.tar.gz
 tar -xpzf ttyd-$v.tar.gz
 cd ttyd-$v
-for i in $patchdir/ttyd-mod-src-[0-9][0-9][0-9].patch; do
+for i in $patchdir/ttyd-mod-src-[0-9]*.patch; do
     patch -p0 < $i
 done
 rm -rf build
 mkdir build
 cd build
 cmake -DCMAKE_INSTALL_PREFIX=$tooldir ..
-patch -p0 < $patchdir/ttyd-mod-cmake-install.patch
+cat $patchdir/ttyd-mod-cmake-install.patch	\
+    | sed -e "s|%%%|$TMPDIR/ttyd-$v|g"		\
+    | patch -p0
 make
 make install
 exit 0

@@ -9,9 +9,10 @@ cd "$1"
 sshhost=${2:-localhost}
 
 while :; do
-    printf '*** '
+    printf '\033[31;1m*** '
     printf "Do you want to apped ${sshhost}'s "
     printf 'host key to known_hosts file, now? [y/n]: '
+    printf '\033[0m'
     read ans
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])
