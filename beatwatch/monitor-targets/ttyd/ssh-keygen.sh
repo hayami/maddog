@@ -10,7 +10,7 @@ keycomment=${2:-"$USER@console"}
 
 while :; do
     printf '\033[32m*** '
-    printf 'Do you want to create ssh key, now? [y/n]: '
+    printf '%s' 'Do you want to create ssh key, now? [y/n]: '
     printf '\033[0m'
     read ans
     case "$ans" in

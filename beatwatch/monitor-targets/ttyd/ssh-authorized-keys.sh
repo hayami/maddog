@@ -1,7 +1,7 @@
 #!/bin/sh
 
 tilde() {
-    printf "$@" | sed -e 's|'"$HOME"'|~|g'
+    printf '%s' "$@" | sed -e 's|'"$HOME"'|~|g'
 }
 
 set -e
@@ -14,19 +14,19 @@ sshhost=${2:-localhost}
 
 if [ ! -r identity.pub ]; then
     printf '\033[32m*** '
-    printf "$(tilde $(pwd)/identity.pub) file not found, skipping."
+    printf '%s' "$(tilde $(pwd)/identity.pub) file not found, skipping."
     printf '\033[0m\n'
     exit 0
 fi
 
-case  "$sshhost" in
+case "$sshhost" in
 localhost|ip6-localhost)
     break
     ;;
 *)
     printf '\033[32m*** '
-    printf "You may want to append the $(tilde $(pwd)/identity.pub) to "
-    printf "${sshhost}:.ssh/authorized_keys, later."
+    printf '%s' "You may want to append the $(tilde $(pwd)/identity.pub) to "
+    printf '%s' "${sshhost}:.ssh/authorized_keys, later."
     printf '\033[0m\n'
     exit 0
     ;;
@@ -36,8 +36,8 @@ if [ -r $HOME/.ssh/authorized_keys ]; then
     x=$(diff -u $HOME/.ssh/authorized_keys identity.pub | grep -e '^ ' || :)
     if [ -n "$x" ]; then
         printf '\033[32m*** '
-        printf 'Your ~/.ssh/authorized_keys file contains '
-        printf 'the same line as identity.pub, skipping.'
+        printf '%s' 'Your ~/.ssh/authorized_keys file contains '
+        printf '%s' 'the same line as identity.pub, skipping.'
         printf '\033[0m\n'
         exit 0
     fi
@@ -45,8 +45,8 @@ fi
 
 while :; do
     printf '\033[32m*** '
-    printf "Do you want to apped $(tilde $(pwd)/identity.pub) to "
-    printf '~/.ssh/authorized_keys, now? [y/n]: '
+    printf '%s' "Do you want to apped $(tilde $(pwd)/identity.pub) to "
+    printf '%s' '~/.ssh/authorized_keys, now? [y/n]: '
     printf '\033[0m'
     read ans
     case "$ans" in

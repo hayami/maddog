@@ -63,9 +63,9 @@ install-ssh-config: ssh-config
 	mkdir -p $(TTYDSSH)
 	chmod 0700 $(TTYDSSH)
 	umask 0077 && cat ssh-config > $(TTYDSSH)/config
-	/bin/sh ssh-known-hosts.sh $(TTYDSSH) $(SSHHOST)
-	/bin/sh ssh-keygen.sh $(TTYDSSH) $(KEYCOMMENT)
-	/bin/sh ssh-authorized-keys.sh $(TTYDSSH) $(SSHHOST)
+	/bin/sh ssh-known-hosts.sh $(TTYDSSH) "$(SSHHOST)"
+	/bin/sh ssh-keygen.sh $(TTYDSSH) "$(KEYCOMMENT)"
+	/bin/sh ssh-authorized-keys.sh $(TTYDSSH) "$(SSHHOST)"
 	find $(TTYDSSH) -exec chmod go-rwxst {} \;
 
 uninstall-ssh-config:
