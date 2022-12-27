@@ -32,6 +32,7 @@ install-beatwatch: ../../obj/beatwatch
 
 uninstall-beatwatch:
 	rm -f $(TOOLDIR)/bin/beatwatch
+	rmdir -v -p $(TOOLDIR)/bin
 
 .PHONY:	install-ttyd uninstall-ttyd
 install-ttyd: ttyd-mod-build+install-script.sh
@@ -39,6 +40,7 @@ install-ttyd: ttyd-mod-build+install-script.sh
 
 uninstall-ttyd:
 	rm -f $(TOOLDIR)/bin/ttyd
+	rmdir -v -p $(TOOLDIR)/bin
 
 .PHONY:	install-html uninstall-html
 install-html: index.cgi console.cgi console.shfunc
@@ -54,7 +56,7 @@ uninstall-html:
 	rm -f $(HTMLDIR)/console.disable*
 	rm -f $(HTMLDIR)/console.shfunc
 	rm -f $(HTMLDIR)/.htaccess
-	-rmdir $(HTMLDIR)
+	rmdir -v -p $(HTMLDIR)
 
 .PHONY:	install-ssh-config uninstall-ssh-config
 install-ssh-config: ssh-config
@@ -68,5 +70,6 @@ install-ssh-config: ssh-config
 
 uninstall-ssh-config:
 	rm -rf $(TTYDSSH)
+	rmdir -v -p $$(dirname $(TTYDSSH))
 
 # vim: noet sw=8 sts=8
