@@ -9,7 +9,7 @@ cd "$1"
 keycomment=${2:-"$USER@console"}
 
 while :; do
-    printf '\033[31;1m*** '
+    printf '\033[32m*** '
     printf 'Do you want to create ssh key, now? [y/n]: '
     printf '\033[0m'
     read ans
