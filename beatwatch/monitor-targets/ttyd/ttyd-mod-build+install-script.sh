@@ -2,6 +2,7 @@
 
 tooldir=${1:-"$HOME/www-tools"}
 patchdir=${2:-"$(pwd)"}
+use_system_ssl=${3:-"0"}
 
 ### see following URLs for latest releases
 ###   libuv		https://github.com/libuv/libuv/releases
@@ -129,7 +130,7 @@ git clone --depth 1			\
     --branch ${libwebsockets_version}	\
     ${libwebsockets_git_url}		\
     libwebsockets-${libwebsockets_version}
-[ $use_libdl -eq 0 ] || patch -d libwebsockets-${libwebsockets_version} \
+[ $use_libdl = 0 ] || patch -d libwebsockets-${libwebsockets_version} \
                               -p1 < $patchdir/ttyd-mod-libwebsockets-dl.patch
 lwsroot=$depdir/libwebsockets-${libwebsockets_version}-root
 luvroot=$depdir/libuv-${libuv_version}-root
@@ -139,7 +140,7 @@ cmake \
     -DCMAKE_INSTALL_PREFIX:PATH=$lwsroot		\
     -DLWS_WITH_SHARED=0					\
     -DLWS_WITH_STATIC=1					\
-    -DLWS_WITH_SSL=0					\
+    -DLWS_WITH_SSL=$use_system_ssl			\
     -DLWS_WITH_LIBUV=1					\
     -DLWS_LIBUV_INCLUDE_DIRS=$luvroot/include		\
     -DLWS_LIBUV_LIBRARIES=$luvroot/lib/libuv_a.a	\
@@ -164,7 +165,7 @@ cd ttyd-${ttyd_version}
 for i in $patchdir/ttyd-mod-[0-9]*.patch; do
     patch -p1 < $i
 done
-[ $use_libdl -eq 0 ] || patch -p1 < $patchdir/ttyd-mod-cap+dl.patch
+[ $use_libdl = 0 ] || patch -p1 < $patchdir/ttyd-mod-cap+dl.patch
 cd $TMPDIR
 rm -rf ttyd-${ttyd_version}-build
 mkdir ttyd-${ttyd_version}-build
@@ -180,7 +181,7 @@ cmake \
     -DJSON-C_LIBRARY=$ljcroot/lib/libjson-c.a			\
     -DLIBWEBSOCKETS_INCLUDE_DIR=$lwsroot/include		\
     -DLIBWEBSOCKETS_LIBRARY=$lwsroot/lib/libwebsockets.a	\
-    -DLWS_OPENSSL_ENABLED=0					\
+    -DLWS_OPENSSL_ENABLED=$use_system_ssl			\
     -DLWS_MBEDTLS_ENABLED=0					\
     -DCMAKE_BUILD_TYPE=Release					\
     ../ttyd-${ttyd_version}
