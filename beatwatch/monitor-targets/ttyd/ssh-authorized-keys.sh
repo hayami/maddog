@@ -30,6 +30,12 @@ if [ ! -r identity.pub ]; then
     exit 0
 fi
 
+if [ $(wc -l < identity.pub) != 1 ]; then
+    color error "ERROR: $(tilde $(pwd)/identity.pub) should have only one line."
+    echo
+    exit 1
+fi
+
 case "$sshhost" in
 localhost|ip6-localhost)
     break
