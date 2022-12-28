@@ -1,0 +1,11 @@
+--- libwebsockets-v4.3-stable/CMakeLists.txt.orig
++++ libwebsockets-v4.3-stable/CMakeLists.txt
+@@ -661,7 +661,7 @@
+ 	endif()
+ endif()
+ 
+-CHECK_LIBRARY_EXISTS(cap cap_set_flag "" LWS_HAVE_LIBCAP)
++set(LWS_HAVE_LIBCAP 0)
+ 
+ 
+ if (LWS_WITH_ZLIB AND NOT LWS_WITH_BUNDLED_ZLIB)

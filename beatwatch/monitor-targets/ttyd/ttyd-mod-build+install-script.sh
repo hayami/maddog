@@ -130,8 +130,11 @@ git clone --depth 1			\
     --branch ${libwebsockets_version}	\
     ${libwebsockets_git_url}		\
     libwebsockets-${libwebsockets_version}
-[ $use_libdl = 0 ] || patch -d libwebsockets-${libwebsockets_version} \
-                              -p1 < $patchdir/ttyd-mod-libwebsockets-dl.patch
+(
+    cd libwebsockets-${libwebsockets_version}
+    patch -p1 <  $patchdir/ttyd-mod-libwebsockets-libcap.patch
+    [ $use_libdl = 0 ] || patch -p1 < $patchdir/ttyd-mod-libwebsockets-libdl.patch
+)
 lwsroot=$depdir/libwebsockets-${libwebsockets_version}-root
 luvroot=$depdir/libuv-${libuv_version}-root
 mkdir libwebsockets-${libwebsockets_version}-build $lwsroot
@@ -165,7 +168,7 @@ cd ttyd-${ttyd_version}
 for i in $patchdir/ttyd-mod-[0-9]*.patch; do
     patch -p1 < $i
 done
-[ $use_libdl = 0 ] || patch -p1 < $patchdir/ttyd-mod-cap+dl.patch
+[ $use_libdl = 0 ] || patch -p1 < $patchdir/ttyd-mod-libdl.patch
 cd $TMPDIR
 rm -rf ttyd-${ttyd_version}-build
 mkdir ttyd-${ttyd_version}-build

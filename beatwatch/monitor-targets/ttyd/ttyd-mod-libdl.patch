@@ -4,7 +4,7 @@
  
  add_executable(${PROJECT_NAME} ${SOURCE_FILES})
  target_include_directories(${PROJECT_NAME} PUBLIC ${INCLUDE_DIRS})
-+list(APPEND LINK_LIBS "-lcap" ${CMAKE_DL_LIBS})
++list(APPEND LINK_LIBS ${CMAKE_DL_LIBS})
  target_link_libraries(${PROJECT_NAME} ${LINK_LIBS} Threads::Threads)
  target_compile_definitions(${PROJECT_NAME} PRIVATE TTYD_VERSION="${PROJECT_VERSION}")
  
