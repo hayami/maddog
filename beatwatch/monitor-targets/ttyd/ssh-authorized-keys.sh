@@ -49,8 +49,8 @@ localhost|ip6-localhost)
 esac
 
 if [ -r $HOME/.ssh/authorized_keys ]; then
-    x=$(diff -u $HOME/.ssh/authorized_keys identity.pub | grep -e '^ ' || :)
-    if [ -n "$x" ]; then
+    if grep -F -x "$(cat identity.pub)" \
+        $HOME/.ssh/authorized_keys > /dev/null 2>&1; then
         color warning 'Your ~/.ssh/authorized_keys file contains ' \
             'the same line as identity.pub, skipping.'
         echo
