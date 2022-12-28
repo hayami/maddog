@@ -1,5 +1,17 @@
 #!/bin/sh
 
+color() {
+    case "$1" in
+    error)   printf '\033[31;1m*** ' ;; # bold red
+    warning) printf '\033[31m*** '   ;; # red
+    notice)  printf '\033[35m*** '   ;; # violet
+    ask)     printf '\033[32m*** '   ;; # green
+    esac
+    shift
+    printf '%s' "$@"
+    printf '\033[0m'                    # reset
+}
+
 set -e
 umask 077
 
@@ -9,10 +21,9 @@ cd "$1"
 sshhost=${2:-localhost}
 
 while :; do
-    printf '\033[32m*** '
-    printf '%s' "Do you want to apped ${sshhost}'s "
-    printf '%s' 'host key to known_hosts file, now? [y/n]: '
-    printf '\033[0m'
+    color ask "Do you want to apped ${sshhost}'s " \
+        'host key to known_hosts file, now? [y/n]: '
+    color end
     read ans
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])

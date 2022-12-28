@@ -4,6 +4,18 @@ tilde() {
     printf '%s' "$@" | sed -e 's|'"$HOME"'|~|g'
 }
 
+color() {
+    case "$1" in
+    error)   printf '\033[31;1m*** ' ;; # bold red
+    warning) printf '\033[31m*** '   ;; # red
+    notice)  printf '\033[35m*** '   ;; # violet
+    ask)     printf '\033[32m*** '   ;; # green
+    esac
+    shift
+    printf '%s' "$@"
+    printf '\033[0m'                    # reset
+}
+
 set -e
 umask 077
 
@@ -13,9 +25,8 @@ cd "$1"
 sshhost=${2:-localhost}
 
 if [ ! -r identity.pub ]; then
-    printf '\033[32m*** '
-    printf '%s' "$(tilde $(pwd)/identity.pub) file not found, skipping."
-    printf '\033[0m\n'
+    color notice "$(tilde $(pwd)/identity.pub) file not found, skipping."
+    echo
     exit 0
 fi
 
@@ -24,10 +35,9 @@ localhost|ip6-localhost)
     break
     ;;
 *)
-    printf '\033[32m*** '
-    printf '%s' "You may want to append the $(tilde $(pwd)/identity.pub) to "
-    printf '%s' "${sshhost}:.ssh/authorized_keys, later."
-    printf '\033[0m\n'
+    color notice "You may want to append the $(tilde $(pwd)/identity.pub) " \
+        "to ${sshhost}:.ssh/authorized_keys, later."
+    echo
     exit 0
     ;;
 esac
@@ -35,19 +45,16 @@ esac
 if [ -r $HOME/.ssh/authorized_keys ]; then
     x=$(diff -u $HOME/.ssh/authorized_keys identity.pub | grep -e '^ ' || :)
     if [ -n "$x" ]; then
-        printf '\033[32m*** '
-        printf '%s' 'Your ~/.ssh/authorized_keys file contains '
-        printf '%s' 'the same line as identity.pub, skipping.'
-        printf '\033[0m\n'
+        color warning 'Your ~/.ssh/authorized_keys file contains ' \
+            'the same line as identity.pub, skipping.'
+        echo
         exit 0
     fi
 fi
 
 while :; do
-    printf '\033[32m*** '
-    printf '%s' "Do you want to apped $(tilde $(pwd)/identity.pub) to "
-    printf '%s' '~/.ssh/authorized_keys, now? [y/n]: '
-    printf '\033[0m'
+    color ask "Do you want to apped $(tilde $(pwd)/identity.pub) to " \
+        '~/.ssh/authorized_keys, now? [y/n]: '
     read ans
     case "$ans" in
     [Yy]|[Yy][Ee][Ss])
