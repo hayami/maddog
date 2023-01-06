@@ -1,24 +1,30 @@
-# MultiviewsMatch Handler
-
-# The 404 will be returned if current directory has a directory named 'ttyd'.
-
-# visit https://miranda.tok.access-company.com/~hayami/tty/ttyd/ssh/dummy?port=7681
-
-# TODO XXX .htaccess に reverse proxy の本格的なルールを設定する
+# visit https://host/dir1/dir2/.../-/?port=12345
 
 RewriteEngine	on
 
+# SSL Check
+RewriteCond	%{HTTPS}		=off
+RewriteRule	.*			-			[F]
+
 # Add a trailing slash if not end with it
-RewriteRule	^(dummy)$		$1/
+RewriteRule	^-$			-/
+
+RewriteCond     %{REQUEST_URI}          ^(.*/-/)
+RewriteRule	.*			-			[E=X:%1]
 
 # http://
 RewriteCond	%{HTTP:Connection}	!upgrade		[NC]
 RewriteCond	%{HTTP:Upgrade}		!websocket		[NC]
 RewriteCond	%{QUERY_STRING}		port=([0-9]+)
-RewriteRule	^(dummy)/(.*)		http://127.0.0.1:%1/$2	[NE,P,L]
+RewriteCond     %1%{REQUEST_URI}	^([0-9]+/.*?/-/)
+RewriteRule	^-/(.*)			http://127.0.0.1:%1$1	[NE,P,L]
 
 # ws://
 RewriteCond	%{HTTP:Connection}	upgrade			[NC]
 RewriteCond	%{HTTP:Upgrade}		websocket		[NC]
 RewriteCond	%{QUERY_STRING}		port=([0-9]+)
-RewriteRule	^(dummy)/(.*)		ws://127.0.0.1:%1/$2	[NE,P,L]
+RewriteCond     %1%{REQUEST_URI}	^([0-9]+/.*?/-/)
+RewriteRule	^-/(.*)			ws://127.0.0.1:%1$1	[NE,P,L]
+
+# Note: It seems that Apache can use non-greedy regex like '.*?'. However,
+#       I could not find any documentation describing this specification.

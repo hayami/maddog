@@ -1,7 +1,9 @@
 #!/bin/sh
-
 set -e
 umask 077
+
+host='https://miranda.tok.access-company.com'
+basepath='/~hayami/tty/ttyd/ssh/-'
 
 # unset env
 PATH=/usr/bin:/bin
@@ -77,7 +79,7 @@ done
 cp -prL $HOME/www-tools/etc/ttyd/ssh .
 
 # Store command and arguments in $@
-cmdargs "$rundir" > cmdargs.txt
+cmdargs "$rundir" "$basepath" > cmdargs.txt
 set --; while read line; do set -- "$@" "$line"; done < cmdargs.txt
 
 # The loop to start the command starts here
@@ -85,9 +87,7 @@ set --; while read line; do set -- "$@" "$line"; done < cmdargs.txt
     case "$line" in
     PORT=[0-9]*)
         echo ${line#'PORT='} > port
-        url='https://miranda.tok.access-company.com/~hayami'
-        url="${url}"'/tty/ttyd/ssh/dummy'
-        url="${url}"'?port='"$(cat port)"
+        url="${host}${basepath}/"'?port='"$(cat port)"
 
         echo 'Content-Type: text/html'
         echo
