@@ -2,29 +2,27 @@
 
 RewriteEngine	on
 
-# SSL Check
+# Reject if this request is not via SSL
 RewriteCond	%{HTTPS}		=off
 RewriteRule	.*			-			[F]
 
 # Add a trailing slash if not end with it
 RewriteRule	^-$			-/
 
-RewriteCond     %{REQUEST_URI}          ^(.*/-/)
-RewriteRule	.*			-			[E=X:%1]
-
-# http://
+# Add 'http' string if this request is http(s)://
 RewriteCond	%{HTTP:Connection}	!upgrade		[NC]
 RewriteCond	%{HTTP:Upgrade}		!websocket		[NC]
-RewriteCond	%{QUERY_STRING}		port=([0-9]+)
-RewriteCond     %1%{REQUEST_URI}	^([0-9]+/.*?/-/)
-RewriteRule	^-/(.*)			http://127.0.0.1:%1$1	[NE,P,L]
+RewriteRule	^-/(.*)			-http/$1
 
-# ws://
+# Add 'ws' string if this request is ws(s)://
 RewriteCond	%{HTTP:Connection}	upgrade			[NC]
 RewriteCond	%{HTTP:Upgrade}		websocket		[NC]
+RewriteRule	^-/(.*)			-ws/$1
+
+# Apply the string added above as URL scheme
 RewriteCond	%{QUERY_STRING}		port=([0-9]+)
-RewriteCond     %1%{REQUEST_URI}	^([0-9]+/.*?/-/)
-RewriteRule	^-/(.*)			ws://127.0.0.1:%1$1	[NE,P,L]
+RewriteCond	%1:%{REQUEST_URI}	^([0-9]+):(/.*?/-/)
+RewriteRule	^-(http|ws)/(.*)	$1://127.0.0.1:%1%2$3	[NE,P,L]
 
 # Note: It seems that Apache can use non-greedy regex like '.*?'. However,
 #       I could not find any documentation describing this specification.
