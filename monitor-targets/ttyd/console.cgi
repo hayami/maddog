@@ -58,7 +58,7 @@ if [ -f $scriptdir/$prefixstr.disable ]; then
 fi
 
 # set rundir, then cd to there
-#   The $rundir should only be removed if the beatwatch exits successfully.
+#   The $rundir should only be removed if the maddog exits successfully.
 #   Otherwise, this directory should be left untouched for later analysis.
 cd $TMPDIR
 rundir=$TMPDIR/$(mktemp -d "${prefixstr}-XXXXXXXX")

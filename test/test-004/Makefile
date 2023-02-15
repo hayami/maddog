@@ -5,8 +5,8 @@ default: run-test
 #   The monitor target (no-such-file) is invoked, but the invocation fails due
 #   to no such file exists.
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- no-such-file
 

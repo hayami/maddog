@@ -1,4 +1,4 @@
-delay=${beatwatch_oopsdelay:-1}
+delay=${maddog_oopsdelay:-1}
 
 sleep $delay
 echo BYE 1>&3

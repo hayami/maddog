@@ -15,4 +15,4 @@ fd3out.log: + TIMEOUT=5
 fd3out.log: % TIMEOUT=10
 fd3out.log: + BYE
 fd3out.log: % EXIT=0
-fd3out.log: NOTICE: beatwatch (command-line): watchdog has disconnected control channel
+fd3out.log: NOTICE: maddog (command-line): watchdog has disconnected control channel

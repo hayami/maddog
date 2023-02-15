@@ -121,7 +121,7 @@ static int child_posttask() {
 
     /* set new process group. monitoring-target becomes new process group
        leader while still belonging to watchdog's sesseion group. */
-    errorpf_prefix = "beatwatch (monitoring-target)";
+    errorpf_prefix = "maddog (monitoring-target)";
     int ret = setpgid(0, 0);
     if (ret != 0) {
         /* send an EOF immediately to parent */

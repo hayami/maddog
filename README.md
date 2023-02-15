@@ -1,6 +1,6 @@
 # Usage
 ```
-usage: beatwatch [OPTION]... [--] COMMAND [ARG]...
+usage: maddog [OPTION]... [--] COMMAND [ARG]...
 options:
   --ctrl-fd <N>    If this option is used, <N> is used for control file
                    descriptor number. Using this option without <N>, or
@@ -14,21 +14,21 @@ options:
 
   --on-exit <S>    If this option is used, script <S> is executed by
                    /bin/sh. At the time before the script is executed,
-                   the exit status of beatwatch (watchdog) is set to the
+                   the exit status of maddog (watchdog) is set to the
                    $? shell variable.
 
   --help, --usage  Display this help and exit.
 ```
 
 # Sequence Diagram
-The following sequence diagram shows typical operation sequences of the beatwatch. Note that it does not show the entire sequences of operations.
+The following sequence diagram shows typical operation sequences of the maddog. Note that it does not show the entire sequences of operations.
 ```mermaid
 sequenceDiagram
 participant H as httpd, shell<br/>or something<br/>like that
-participant C as beatwatch<br/>(cmdline)
-participant T as beatwatch<br/>(transient-<br/>watchdog)
-participant W as beatwatch<br/>(watchdog)
-participant E as beatwatch<br/>(execfunc)
+participant C as maddog<br/>(cmdline)
+participant T as maddog<br/>(transient-<br/>watchdog)
+participant W as maddog<br/>(watchdog)
+participant E as maddog<br/>(execfunc)
 participant M as monitor target
 
 activate H

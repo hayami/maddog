@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     int ret;
 
     errorpf_outfp = stderr;
-    errorpf_prefix = "beatwatch (command-line)";
+    errorpf_prefix = "maddog (command-line)";
 
     exec_argv = argv + parsearg(argc, argv);
 
@@ -374,7 +374,7 @@ static int boolstr2int(const char *str) {
 
 static void usage(int status) {
     fprintf(stderr,
-    "usage: beatwatch [OPTION]... [--] COMMAND [ARG]...\n"
+    "usage: maddog [OPTION]... [--] COMMAND [ARG]...\n"
     "options:\n"
     "  --ctrl-fd <N>    If this option is used, <N> is used for control file\n"
     "                   descriptor number. Using this option without <N>, or\n"
@@ -388,7 +388,7 @@ static void usage(int status) {
     "\n"
     "  --on-exit <S>    If this option is used, script <S> is executed by\n"
     "                   /bin/sh. At the time before the script is executed,\n"
-    "                   the exit status of beatwatch (watchdog) is set to the\n"
+    "                   the exit status of maddog (watchdog) is set to the\n"
     "                   $? shell variable.\n"
     "\n"
     "  --help, --usage  Display this help and exit.\n",

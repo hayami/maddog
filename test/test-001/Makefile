@@ -5,8 +5,8 @@ default: run-test
 #   The monitor target (sleep 3) is going to terminate after 3 seconds without
 #   DETACH. It will not time out.
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- sleep 3
 

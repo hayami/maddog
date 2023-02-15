@@ -6,8 +6,8 @@ default: run-test
 #   the control channel without DETACH. The control message sent after BYE is
 #   not received by anyone.
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- /bin/sh monitor-target.sh
 

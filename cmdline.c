@@ -93,7 +93,7 @@ wayout:
 static int child_posttask() {
     /* detach from the controlling terminal. watchdog becomes a new
        session leader, and also becomes a new process group leader. */
-    errorpf_prefix = "beatwatch (transient-watchdog)";
+    errorpf_prefix = "maddog (transient-watchdog)";
     static const int nochdir = 1;
     static const int noclose = 1;
     int ret = daemon(nochdir, noclose);
@@ -101,7 +101,7 @@ static int child_posttask() {
         errorpf(errno, "daemon()");
         exit(FATAL_EXIT);
     }
-    errorpf_prefix = "beatwatch (watchdog)";
+    errorpf_prefix = "maddog (watchdog)";
     /* At this point, the parent side can go beyond the waitpid() */
 
     /* child created via fork() inherits a copy of its parent's signal

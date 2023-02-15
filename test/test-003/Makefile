@@ -6,8 +6,8 @@ default: run-test
 #   to the control channel and then teminate after 3 seconds without DETACH.
 #   The run-test.sh checks PGID, PPID, SID and so on based on TESTPID value.
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- /bin/sh monitor-target.sh
 

@@ -26,7 +26,7 @@ SRCPATH	=
 
 MAKEFLAGS += --no-print-directory
 
-beatwatch: $(OBJS)
+maddog: $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^ $(LDLIBS)
 
 %.o:	$(SRCPATH)%.c
@@ -34,30 +34,30 @@ beatwatch: $(OBJS)
 
 .PHONY:	clean
 clean:
-	rm -rf beatwatch *.o obj obj-*
+	rm -rf maddog *.o obj obj-*
 
 .PHONY:	build
 build:
 	mkdir -p obj
 	cd obj && \
-	$(MAKE) -f ../Makefile SRCPATH=../ beatwatch
+	$(MAKE) -f ../Makefile SRCPATH=../ maddog
 
 .PHONY:	build-with-debug
 build-with-debug:
 	mkdir -p obj-debug
 	cd obj-debug && \
-	$(MAKE) -f ../Makefile SRCPATH=../ CFLAGS=-g LDFLAGS= beatwatch
+	$(MAKE) -f ../Makefile SRCPATH=../ CFLAGS=-g LDFLAGS= maddog
 
 .PHONY:	build-with-arg-parser
 build-with-arg-parser:
 	mkdir -p obj-arg-parser
 	cd obj-arg-parser && \
-	$(MAKE) -f ../Makefile SRCPATH=../ DEFS=-DDEBUG_ARG_PARSER beatwatch
+	$(MAKE) -f ../Makefile SRCPATH=../ DEFS=-DDEBUG_ARG_PARSER maddog
 
 .PHONY:	build-with-dynsym
 build-with-dynsym:
 	mkdir -p obj-dynsym
 	cd obj-dynsym && \
-	$(MAKE) -f ../Makefile SRCPATH=../ LDFLAGS='-s -rdynamic' beatwatch
+	$(MAKE) -f ../Makefile SRCPATH=../ LDFLAGS='-s -rdynamic' maddog
 
 # vim: noet sw=8 sts=8

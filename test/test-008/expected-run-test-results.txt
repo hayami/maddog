@@ -8,8 +8,8 @@ ctrl.log: (time) + TIMEOUT=5
 ctrl.log: (time) TIMEOUT=10
 ctrl.log: (time) + EXIT=234
 ctrl.log: (time) EXIT=234
-ctrl.log: (time) NOTICE: beatwatch (watchdog): monitoring-target has disconnected control channel
-ctrl.log: (time) NOTICE: beatwatch (watchdog): monitoring-target returned exit status 0
+ctrl.log: (time) NOTICE: maddog (watchdog): monitoring-target has disconnected control channel
+ctrl.log: (time) NOTICE: maddog (watchdog): monitoring-target returned exit status 0
 fd3out.log: % KILLPID=00101
 fd3out.log: + KILLPID=00102
 fd3out.log: + KILLPID=-00102
@@ -17,6 +17,6 @@ fd3out.log: + TIMEOUT=5
 fd3out.log: % TIMEOUT=10
 fd3out.log: + EXIT=234
 fd3out.log: % EXIT=234
-fd3out.log: NOTICE: beatwatch (watchdog): monitoring-target has disconnected control channel
-fd3out.log: NOTICE: beatwatch (watchdog): monitoring-target returned exit status 0
-fd3out.log: NOTICE: beatwatch (command-line): watchdog has disconnected control channel
+fd3out.log: NOTICE: maddog (watchdog): monitoring-target has disconnected control channel
+fd3out.log: NOTICE: maddog (watchdog): monitoring-target returned exit status 0
+fd3out.log: NOTICE: maddog (command-line): watchdog has disconnected control channel

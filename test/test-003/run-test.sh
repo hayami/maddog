@@ -6,7 +6,7 @@ PATH=/usr/bin:/bin
 for x in $(env | sed 's/=.*$//'); do
     case "$x" in
     HOME|LOGNAME|PATH|PWD|SHELL|SHLVL|TERM|USER) ;;
-    beatwatch_*) ;;
+    maddog_*) ;;
     (*) unset $x ;;
     esac
 done
@@ -43,7 +43,7 @@ cd $rundir
         sid=$(ps -p $mtarget_pid -o sid=)
         num=$(psmatch SID $mtarget_sid | wc -l | sed -e 's/ //g')
         [ $num -eq 3 ] && printf "PASS: " || printf "FAIL: "
-        echo "number of same SID is $num (should be 3)"	# beatwatch, /bin/sh and sleep
+        echo "number of same SID is $num (should be 3)"	# maddog, /bin/sh and sleep
 
         # check tty names of same SID
         psmatch SID $mtarget_sid TT | while read tty; do
@@ -53,21 +53,21 @@ cd $rundir
             esac
         done
 
-        # check PPID of beatwatch (watchdog)
+        # check PPID of maddog (watchdog)
         [ $watchdog_ppid -eq 1 ] && printf "PASS: " || printf "FAIL: "
-        echo "PPID of beatwatch is $watchdog_ppid (should be 1)"
+        echo "PPID of maddog is $watchdog_ppid (should be 1)"
 
-        # check PID of beatwatch (watchdog)
+        # check PID of maddog (watchdog)
         [ $watchdog_pid -eq $mtarget_ppid ] && printf "PASS: " || printf "FAIL: "
-        echo "PID of beatwatch is PPID of monitoring-target"
+        echo "PID of maddog is PPID of monitoring-target"
 
-        # check PGID of beatwatch (watchdog)
+        # check PGID of maddog (watchdog)
         [ $watchdog_pgid -ne $mtarget_pgid ] && printf "PASS: " || printf "FAIL: "
-        echo "PGID of beatwatch is not same as PGID of monitoring-target"
+        echo "PGID of maddog is not same as PGID of monitoring-target"
 
-        # check SID of beatwatch (watchdog)
+        # check SID of maddog (watchdog)
         [ $watchdog_sid -eq $mtarget_sid ] && printf "PASS: " || printf "FAIL: "
-        echo "SID of beatwatch is same as SID of monitoring-target"
+        echo "SID of maddog is same as SID of monitoring-target"
 
         # check PPID of monitoring-target
         [ $mtarget_ppid -eq $watchdog_pid ] && printf "PASS: " || printf "FAIL: "
@@ -79,13 +79,13 @@ cd $rundir
 
         # check PGID of monitoring-target
         [ $mtarget_pgid -ne $watchdog_pgid ] && printf "PASS: " || printf "FAIL: "
-        echo "PGID of monitoring-target is not same as PGID of beatwatch"
+        echo "PGID of monitoring-target is not same as PGID of maddog"
 
-        # check beatwatch (watchdog) COMMAND name where PID == SID
+        # check maddog (watchdog) COMMAND name where PID == SID
         set -- $watchdog_cmdname
         cmdname=${1##*/}
-        [ "$cmdname" = "beatwatch" ] && printf "PASS: " || printf "FAIL: "
-        echo "COMMAND name where PID == SID is '$cmdname' (should be 'beatwatch')"
+        [ "$cmdname" = "maddog" ] && printf "PASS: " || printf "FAIL: "
+        echo "COMMAND name where PID == SID is '$cmdname' (should be 'maddog')"
 
         # check monitorinig-target COMMAND name where PID == PGID
         set -- $mtarget_cmdname

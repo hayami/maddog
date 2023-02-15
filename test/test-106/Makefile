@@ -6,9 +6,9 @@ default: run-test
 #   called from child_posttask(), called from watchdog(). The setpgid() is
 #   controlled to fail by preload.so.
 #
-beatwatch = ../../../obj-dynsym/beatwatch
+maddog	= ../../../obj-dynsym/maddog
 execargs = LD_PRELOAD=../../$(testname)/preload.so			\
-	$(beatwatch) --ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)	\
+	$(maddog) --ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)		\
 	-- sleep 3
 
 testname := $(shell basename $$(pwd))

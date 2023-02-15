@@ -16,22 +16,22 @@ install-all: install-bin install-misc
 uninstall-all: uninstall-bin uninstall-misc
 
 .PHONY:	install-bin uninstall-bin
-install-bin: install-beatwatch install-ttyd
-uninstall-bin: uninstall-beatwatch uninstall-ttyd
+install-bin: install-maddog install-ttyd
+uninstall-bin: uninstall-maddog uninstall-ttyd
 
 .PHONY:	install-misc uninstall-misc
 install-misc: install-html install-ssh-config
 uninstall-misc: uninstall-html uninstall-ssh-config
 
-.PHONY:	install-beatwatch uninstall-beatwatch
-install-beatwatch: ../../obj/beatwatch
+.PHONY:	install-maddog uninstall-maddog
+install-maddog: ../../obj/maddog
 	install -t $(TOOLDIR)/bin -m 0755 $<
 
-../../obj/beatwatch:
+../../obj/maddog:
 	$(MAKE) -C ../.. build
 
-uninstall-beatwatch:
-	rm -f $(TOOLDIR)/bin/beatwatch
+uninstall-maddog:
+	rm -f $(TOOLDIR)/bin/maddog
 	rmdir -v -p $(TOOLDIR)/bin
 
 .PHONY:	install-ttyd uninstall-ttyd

@@ -5,8 +5,8 @@ default: run-test
 #   The monitor target (monitor-target.sh) sends one line text to each of
 #   stdout, stderr, and the control channel without DETACH.
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- /bin/sh monitor-target.sh
 

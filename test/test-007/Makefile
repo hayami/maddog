@@ -5,8 +5,8 @@ default: run-test
 #   The monitor target (monitor-target.sh) reads only one line from stdin
 #   without DETACH.
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- /bin/sh monitor-target.sh
 

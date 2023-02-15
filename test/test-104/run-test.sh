@@ -6,7 +6,7 @@ PATH=/usr/bin:/bin
 for x in $(env | sed 's/=.*$//'); do
     case "$x" in
     HOME|LOGNAME|PATH|PWD|SHELL|SHLVL|TERM|USER) ;;
-    beatwatch_*) ;;
+    maddog_*) ;;
     (*) unset $x ;;
     esac
 done

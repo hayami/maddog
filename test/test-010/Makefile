@@ -4,10 +4,10 @@ default: run-test
 # TEST DESCRIPTION
 #   The monitor target (monitor-target.sh) send DETACH and send one line text
 #   to the control channel. The control message sent after DETACH is received
-#   by the beatwatch (watchdog) but is not received by beatwatch (cmdline).
+#   by the maddog (watchdog) but is not received by maddog (cmdline).
 #
-beatwatch = ../../../obj/beatwatch
-execargs = $(beatwatch) --debug						\
+maddog	= ../../../obj/maddog
+execargs = $(maddog) --debug						\
 	--ctrl-fd 3 --ctrl-log ctrl.log $(extraopts)			\
 	-- /bin/sh monitor-target.sh
 
