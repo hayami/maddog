@@ -1,0 +1,29 @@
+Host *
+    ForwardAgent no
+    ForwardX11 no
+    PasswordAuthentication no
+    HostbasedAuthentication no
+    GSSAPIAuthentication no
+    GSSAPIDelegateCredentials no
+    PreferredAuthentications publickey
+    BatchMode no
+    CheckHostIP yes
+    AddressFamily any
+    ConnectTimeout 0
+    StrictHostKeyChecking yes
+
+    # When the key file specified here is used, you will be prompted for
+    # its passphrase. At that time, the filename will appear with input
+    # prompt. If the filename is specified as an absolute path, the home
+    # directory path and the user name will be visible to the outside
+    # world. It is possible to specify the filename using relative path.
+    # By setting the line below, only 'ssh/identity' will be displayed
+    # as the filename, preventing the home directory path and the user
+    # name from being exposed to the outside world. Note: In this case,
+    # the filename must be relative to the directory from which ssh was
+    # invoked.
+    IdentityFile ssh/identity
+
+    Port 22
+    Protocol 2
+    UserKnownHostsFile ssh/known_hosts

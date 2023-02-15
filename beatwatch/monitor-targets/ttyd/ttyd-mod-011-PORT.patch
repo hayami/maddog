@@ -1,0 +1,11 @@
+--- ttyd-1.7.2/src/server.c.orig
++++ ttyd-1.7.2/src/server.c
+@@ -572,6 +572,8 @@
+   }
+   int port = lws_get_vhost_listen_port(vhost);
+   lwsl_notice(" Listening on port: %d\n", port);
++  dprintf(3, "PORT=%d\n", port);
++  dprintf(3, "TIMEOUT=30\n");
+ 
+   if (browser) {
+     char url[30];

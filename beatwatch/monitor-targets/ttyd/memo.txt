@@ -1,0 +1,25 @@
+TODO XXX
+diff -urN tty/ttyd/ssh/console.cgi tty.bak/ttyd/ssh/console.cgi
+--- tty/ttyd/ssh/console.cgi	2022-12-27 21:47:46.772976973 +0900
++++ tty.bak/ttyd/ssh/console.cgi	2022-12-27 21:36:19.681250621 +0900
+@@ -85,7 +85,8 @@
+     case "$line" in
+     PORT=[0-9]*)
+         echo ${line#'PORT='} > port
+-        url='https://miranda.tok.access-company.com/~hayami'
++        #url='https://miranda.tok.access-company.com/~hayami'
++        url='http://localhost/~hayami'
+         url="${url}"'/tty/ttyd/ssh/dummy'
+         url="${url}"'?port='"$(cat port)"
+ 
+diff -urN tty/ttyd/ssh/console.shfunc tty.bak/ttyd/ssh/console.shfunc
+--- tty/ttyd/ssh/console.shfunc	2022-12-27 21:47:46.776976903 +0900
++++ tty.bak/ttyd/ssh/console.shfunc	2022-12-27 21:36:47.316769777 +0900
+@@ -49,6 +49,7 @@
+ 				"brightYellow":"#E8E800",	\
+ 				"selection":"#D282D2"}'
+ 	ssh
++	-p 32323
+ 	-F ssh/config
+ 	localhost
+ 
