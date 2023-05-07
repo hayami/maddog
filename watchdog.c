@@ -127,7 +127,8 @@ static int child_posttask() {
        leader while still belonging to watchdog's sesseion group. */
     errorpf_prefix = "maddog (monitoring-target)";
 #ifdef __linux__
-    prctl(PR_SET_NAME,"maddog:target", 0, 0, 0);	/* max 15 bytes long */
+    /* up to 16 bytes long, including the terminating null byte */
+    prctl(PR_SET_NAME,"maddog:target", 0, 0, 0);
 #else
     setproctitle("-%s", "maddog:target");
 #endif

@@ -99,7 +99,8 @@ static int child_posttask() {
        session leader, and also becomes a new process group leader. */
     errorpf_prefix = "maddog (transient-watchdog)";
 #ifdef __linux__
-    prctl(PR_SET_NAME,"(transient)", 0, 0, 0);	/* max 15 bytes long */
+    /* up to 16 bytes long, including the terminating null byte */
+    prctl(PR_SET_NAME,"(transient)", 0, 0, 0);
 #else
     setproctitle("-%s", "(transient)");
 #endif
@@ -114,7 +115,8 @@ static int child_posttask() {
 
     errorpf_prefix = "maddog (watchdog)";
 #ifdef __linux__
-    prctl(PR_SET_NAME,"maddog:watchdog", 0, 0, 0);	/* max 15 bytes long */
+    /* up to 16 bytes long, including the terminating null byte */
+    prctl(PR_SET_NAME,"maddog:watchdog", 0, 0, 0);
 #else
     setproctitle("-%s", "maddog:watchdog");
 #endif
