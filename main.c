@@ -4,6 +4,7 @@
 #include <string.h>
 #include <signal.h>
 #include <fcntl.h>
+#include <sys/prctl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 
@@ -35,6 +36,7 @@ int main(int argc, char *argv[]) {
 
     errorpf_outfp = stderr;
     errorpf_prefix = "maddog (command-line)";
+    prctl(PR_SET_NAME,"maddog^cmdline", 0, 0, 0);	/* max 15 bytes long */
 
     exec_argv = argv + parsearg(argc, argv);
 

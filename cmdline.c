@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -94,6 +95,8 @@ static int child_posttask() {
     /* detach from the controlling terminal. watchdog becomes a new
        session leader, and also becomes a new process group leader. */
     errorpf_prefix = "maddog (transient-watchdog)";
+    prctl(PR_SET_NAME,"(transient)", 0, 0, 0);	/* max 15 bytes long */
+
     static const int nochdir = 1;
     static const int noclose = 1;
     int ret = daemon(nochdir, noclose);
@@ -101,7 +104,10 @@ static int child_posttask() {
         errorpf(errno, "daemon()");
         exit(FATAL_EXIT);
     }
+
     errorpf_prefix = "maddog (watchdog)";
+    prctl(PR_SET_NAME,"maddog^watchdog", 0, 0, 0);	/* max 15 bytes long */
+
     /* At this point, the parent side can go beyond the waitpid() */
 
     /* child created via fork() inherits a copy of its parent's signal

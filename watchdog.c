@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/prctl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 
@@ -122,6 +123,8 @@ static int child_posttask() {
     /* set new process group. monitoring-target becomes new process group
        leader while still belonging to watchdog's sesseion group. */
     errorpf_prefix = "maddog (monitoring-target)";
+    prctl(PR_SET_NAME,"maddog^target", 0, 0, 0);	/* max 15 bytes long */
+
     int ret = setpgid(0, 0);
     if (ret != 0) {
         /* send an EOF immediately to parent */
